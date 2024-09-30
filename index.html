@@ -54,12 +54,30 @@
                     <button class="btn btn-outline-light" type="submit">Search</button>
                 </form>
                 <div class="d-flex">
-                    <a href="#" class="btn btn-warning me-2">Cart (0)</a>
+                    <a href="#" class="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#cartModal">View Cart</a>
                     <a href="#" class="btn btn-light"><i class="fas fa-user"></i> Profile</a>
                 </div>
             </div>
         </div>
     </nav>
+
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cartModalLabel">Your Cart</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul id="cart-items" class="list-group">
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="container-fluid p-0">
         <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -211,7 +229,6 @@
                     </div>
                 </div>
             </div>
-            
         </div>
     </div>
     
@@ -310,7 +327,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Add to Cart</button>
+                                        <button onclick="addToCart(${product.id}, '${product.title}', ${product.price})" class="btn btn-primary">Add to Cart</button>
                                     </div>
                                 </div>
                             </div>
@@ -332,6 +349,13 @@
                 }
             }
             return stars;
+        }
+        function addToCart(id, title, price) {
+    const cartItems = document.getElementById('cart-items');
+    const cartItem = document.createElement('li');
+    cartItem.textContent = `${title} - $${price}`;
+    cartItems.appendChild(cartItem);
+    cart.push({ id, title, price });
         }
         </script>        
 </body>
